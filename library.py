@@ -39,26 +39,29 @@ class Library:
 
         :param query: Запрос для поиска (может быть год, название или автор книги).
         """
-        result = None
-        for book in self.library.lib().values():
-            if query.isdigit():
-                if book.year == int(query):
-                    result = book
-                    print(f"Ваша книга найдена!\n ID книги {book.id}\n Ее автор: {book.author},\n "
-                          f"название {book.title},\n год: {book.year},\n состояние: {book.status}\n")
-            else:
-                if book.title == query or book.author == query:
-                    result = book
-                    print(f"Ваша книга найдена!\n ID книги {book.id}\n Ее автор: {book.author},\n "
-                          f"название {book.title},\n год: {book.year},\n состояние: {book.status}\n")
-            if not result:
-                print("К сожалению ваша книга не найдена! =(")
+        if self.library.lib():
+            result = None
+            for book in self.library.lib().values():
+                if query.isdigit():
+                    if book.year == int(query):
+                        result = book
+                        print(f"Ваша книга найдена!\n ID книги {book.id}\n Ее автор: {book.author},\n "
+                              f"название {book.title},\n год: {book.year},\n состояние: {book.status}\n")
+                else:
+                    if book.title == query or book.author == query:
+                        result = book
+                        print(f"Ваша книга найдена!\n ID книги {book.id}\n Ее автор: {book.author},\n "
+                              f"название {book.title},\n год: {book.year},\n состояние: {book.status}\n")
+                if not result:
+                    print("К сожалению ваша книга не найдена! =(")
+        else:
+            print("В библиотеке нет не одной книги")
 
     def view_books(self) -> None:
         """
         Просмотр всех книг в библиотеке
         """
-        if self.library:
+        if self.library.lib():
             for x in self.library.lib().values():
                 print(f"Книга ID: {x.id},\n Автор: {x.author},\n Название: {x.title},\n "
                       f"Год выпуска: {x.year},\n Статус: {x.status}\n")
