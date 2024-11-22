@@ -6,7 +6,6 @@ from library import Library
 from models import Book
 
 
-
 class TestLibrary(unittest.TestCase):
     def setUp(self):
         """Создание экземпляра библиотеки для тестов."""
@@ -55,7 +54,28 @@ class TestLibrary(unittest.TestCase):
             self.assertNotIn("1", data)
 
     def test_delete_nonexistent_book(self):
-        """Тестирование удаления несуществующей книги."""
+        """ Тестирование удаления несуществующей книги. """
         with mock.patch('builtins.print') as mocked_print:
             self.library.delete_book(999)
             mocked_print.assert_called_once_with("Книги с таким ID не найдено")
+
+    def test_search_book_by_author(self):
+        """ Тестирование поиска книги по автору. """
+        self.library.add_book("Tests_title", "Tests_author", 1949)
+        with mock.patch('builtins.print') as mocked_print:
+            self.library.search_book("Tests_author")
+            mocked_print.assert_called_once_with(f"Ваша книга найдена!\n ID книги 1\n Ее автор: Tests_author,\n "
+                                                 f"название Tests_title,\n год: 1949,\n состояние: В наличии\n")
+
+    def test_search_nonexistent_book(self):
+        """ Тестирование поиска несуществующей книги. """
+        self.library.add_book("Tests_title", "Tests_author", 1949)
+        with mock.patch('builtins.print') as mocked_print:
+            self.library.search_book("Неизвестная книга")
+            mocked_print.assert_called_once_with("К сожалению ваша книга не найдена! =(")
+
+    def test_search_book_with_empty_library(self):
+        """ Тестирование поиска книги с пустой библиотекой. """
+        with mock.patch('builtins.print') as mocked_print:
+            self.library.search_book("Неизвестная книга")
+            mocked_print.assert_called_once_with('В библиотеке нет не одной книги')
