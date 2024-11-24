@@ -41,9 +41,14 @@
    `
    cd Загрузки/LibraryConsole
    `<br>
+   <br>Пример(Mac):<br>
+   `
+   cd Desktop/LibraryConsole
+   `<br>
    
 5. Дальше вводим команду:<br>
    Windows: `python ./main.py`<br>
    Linux: `python3 ./main.py`<br>
+   Mac: `python main.py`<br>
 6. Приложение запущенно<br>
 7. Для завершенния работы приложения выберете пунк 6 в меню приложения
